@@ -1,5 +1,6 @@
 package com.patriciatersariol.workshopspring.resources;
 
+import com.patriciatersariol.workshopspring.domain.Post;
 import com.patriciatersariol.workshopspring.domain.User;
 import com.patriciatersariol.workshopspring.dto.UserDTO;
 import com.patriciatersariol.workshopspring.services.UserService;
@@ -53,6 +54,14 @@ public class UserResource {
         service.update(obj);
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        List<Post> posts = obj.getPosts();
+
+        return ResponseEntity.ok().body(posts);
     }
 
 }
